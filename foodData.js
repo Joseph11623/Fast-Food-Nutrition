@@ -1,10 +1,43 @@
+var url = "https://raw.githubusercontent.com/Joseph11623/datasets/refs/heads/main/Science/Fast%20Food%20Nutrition.csv"
+var foodItems = getColumn(url,1)
+var foodTypes = getColumn(url,2)
+var vendors = getColumn(url,3)
+var calories = getColumn(url,4)
+var fats = getColumn(url,5)
+var protiens = getColumn(url,6)
+var carbs = getColumn(url,7)
+var cholesterols = getColumn(url,8)
+var sodiums = getColumn(url,10)
+ 
+//this function gets the calories per each gram of protien.
+function getCaloriesPerGramsOfProtien (calorie,protien){
+  var caloriesPerProtien = calorie/protien;
+  var itemsThatWork = [];
+    for(var i = 0; i < calories.length; i++){
+      var listcalperpro = parseInt(calories[i])/parseInt(protiens[i])
+        if(listcalperpro > caloriesPerProtien){
+          itemsThatWork.push(foodItems[i])
+        }
+    }
+return itemsThatWork
+}
+ console.log(getCaloriesPerGramsOfProtien(1000,50))
 
 
+function getFoodItemsFromVendor(vendor){
+var foodPerVendor = []
 
+  for (var i = 0; i < calories.length; i++){
+    if (vendors[i].toLowerCase().includes(vendor.toLowerCase()))
+      foodPerVendor.push(foodItems[i])
+  }
+  if (foodPerVendor.length == 0){
+    return "No Results"
+  }
+  return foodPerVendor
+}
 
-
-
-
+console.log(getFoodItemsFromVendor("mcdonalds"))
 
 
 
