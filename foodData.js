@@ -1,43 +1,47 @@
-var url = "https://raw.githubusercontent.com/Joseph11623/datasets/refs/heads/main/Science/Fast%20Food%20Nutrition.csv"
-var foodItems = getColumn(url,1)
+var url = "https://raw.githubusercontent.com/b-mcavoy/datasets/refs/heads/main/Science/Fast%20Food%20Nutrition.csv"
+var foodItems = getColumn(url, 1)
 var foodTypes = getColumn(url,2)
 var vendors = getColumn(url,3)
-var calories = getColumn(url,4)
-var fats = getColumn(url,5)
-var protiens = getColumn(url,6)
-var carbs = getColumn(url,7)
-var cholesterols = getColumn(url,8)
+var calories = getColumn (url,4)
+var fats = getColumn (url,5)
+var proteins = getColumn (url,6)
+var carbs = getColumn (url,7)
+var cholesterols = getColumn(url, 8)
 var sodiums = getColumn(url,10)
- 
-//this function gets the calories per each gram of protien.
-function getCaloriesPerGramsOfProtien (calorie,protien){
-  var caloriesPerProtien = calorie/protien;
-  var itemsThatWork = [];
-    for(var i = 0; i < calories.length; i++){
-      var listcalperpro = parseInt(calories[i])/parseInt(protiens[i])
-        if(listcalperpro > caloriesPerProtien){
-          itemsThatWork.push(foodItems[i])
+
+function getCaloriesInItem(item){
+    var caloriecount = 0
+    for(var i = 0; i < foodItems.length; i++){
+        if(item.toLowerCase() == foodItems[i].toLowerCase()){
+            caloriecount = calories[i] 
         }
     }
-return itemsThatWork
+    return caloriecount
 }
- console.log(getCaloriesPerGramsOfProtien(1000,50))
+// console.log(getCaloriesInItem("Kfc Biscuit"))
 
 
-function getFoodItemsFromVendor(vendor){
-var foodPerVendor = []
+function getAverageCalorieCount(vendor){
+    var matchingVendors = 0
+    var caloriecount = 0
+    var averageCalories = 0 
+    for (var i = 0; i < foodItems.length; i++){
+        if(vendor.toLowerCase() == vendors[i].toLowerCase()){
+            matchingVendors++
+            
+            caloriecount = parseFloat(caloriecount) + parseFloat(calories[i])
+            console.log(caloriecount)
 
-  for (var i = 0; i < calories.length; i++){
-    if (vendors[i].toLowerCase().includes(vendor.toLowerCase()))
-      foodPerVendor.push(foodItems[i])
-  }
-  if (foodPerVendor.length == 0){
-    return "No Results"
-  }
-  return foodPerVendor
+        }
+    }
+    averageCalories = (caloriecount/matchingVendors)
+    return averageCalories
 }
+console.log(getAverageCalorieCount("McDonalds"))
 
-console.log(getFoodItemsFromVendor("mcdonalds"))
+
+
+
 
 
 
